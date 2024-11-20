@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ushtrimi 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>USHTRIMI 1 - ARRAY</h1>
+    <label for="array-input">Vendos elementet e array (ndarë me presje):</label>
+    <input type="text" id="array-input" placeholder="Shembull: 5,8,12,20,25">
+    <button onclick="initializeArray()">Inicializo Array</button>
+
+    <div class="output">
+        <p><strong>Array:</strong> <span id="array-output"></span></p>
+        <button onclick="getFirstElement()">Kthe elementin e parë</button>
+        <button onclick="getLastElement()">Kthe elementin e fundit</button>
+        <button onclick="isElementInThirdPosition()">Kontrollo elementin në pozicionin e tretë</button>
+        <button onclick="sortArray()">Rendit Array në rend rritës</button>
+        <br>
+        <label for="new-element">Shto një element të ri:</label>
+        <input type="number" id="new-element">
+        <button onclick="addElementInMiddle()">Shto në mes</button>
+        <button onclick="addElementAtEnd()">Shto në fund</button>
+        <button onclick="removeLast()">Hiqe të fundit</button>
+        <p><strong>Shuma:</strong> <span id="sum-output"></span></p>
+        <p><strong>Mesatarja:</strong> <span id="average-output"></span></p>
+    </div>
+
+    <script>
+        let array = [];
+
+        function initializeArray() {
+            const input = document.getElementById('array-input').value;
+            array = input.split(',').map(Number);
+            updateOutput();
+        }
+
+        function updateOutput() {
+            document.getElementById('array-output').textContent = array.join(', ');
+            document.getElementById('sum-output').textContent = getSum(array);
+            document.getElementById('average-output').textContent = getAverage(array).toFixed(2);
+        }
+
+        function getFirstElement() {
+            alert("Elementi i parë: " + array[0]);
+        }
+
+        function getLastElement() {
+            alert("Elementi i fundit: " + array[array.length - 1]);
+        }
+
+        function isElementInThirdPosition() {
+            alert("Elementi në pozicionin e tretë ekziston: " + (array.length >= 3));
+        }
+
+        function sortArray() {
+            array.sort((a, b) => a - b);
+            updateOutput();
+        }
+
+        function addElementInMiddle() {
+            const newElement = parseInt(document.getElementById('new-element').value, 10);
+            if (!isNaN(newElement)) {
+                const middleIndex = Math.floor(array.length / 2);
+                array.splice(middleIndex, 0, newElement);
+                updateOutput();
+            }
+        }
+
+        function addElementAtEnd() {
+            const newElement = parseInt(document.getElementById('new-element').value, 10);
+            if (!isNaN(newElement)) {
+                array.push(newElement);
+                updateOutput();
+            }
+        }
+
+        function removeLast() {
+            array.pop();
+            updateOutput();
+        }
+
+        function getSum(array) {
+            return array.reduce((sum, num) => sum + num, 0);
+        }
+
+        function getAverage(array) {
+            return getSum(array) / array.length;
+        }
+    </script>
+</body>
+</html>
